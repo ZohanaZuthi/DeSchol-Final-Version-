@@ -1,10 +1,11 @@
 {
-  "name": "backend",
+  "name": "deschol-backend",
   "version": "1.0.0",
   "description": "MERN stack backend server",
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "build": "echo \"no build step\"",
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,5 +24,6 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  }
+  },
+  "engines": { "node": "20.x" }
 }
