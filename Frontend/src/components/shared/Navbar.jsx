@@ -1,4 +1,4 @@
-// src/components/shared/Navbar.jsx
+
 import { Link, NavLink, useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/AuthContext"
 
@@ -43,7 +43,7 @@ export default function Navbar() {
             <>
               <NavItem to="/dashboard">Dashboard</NavItem>
 
-              {/* one smart entry for recruiters/admins */}
+              
               {isRecruiterOrAdmin && <NavItem to="/compose">Compose</NavItem>}
 
              

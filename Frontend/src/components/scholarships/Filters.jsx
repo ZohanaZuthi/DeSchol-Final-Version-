@@ -1,10 +1,10 @@
-// src/components/scholarships/Filters.jsx
+
 export default function Filters({ values, onChange }) {
   const set = (k, v) => onChange({ ...values, [k]: v });
 
   return (
     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-      {/* TYPE must match backend: Fully Funded | Partial | Grant | General */}
+      
       <select
         className="px-3 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900"
         value={values.type || ""}
@@ -17,7 +17,7 @@ export default function Filters({ values, onChange }) {
         <option value="General">General</option>
       </select>
 
-      {/* NOTE: 'level' does nothing unless your backend filters by it */}
+      
       <select
         className="px-3 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900"
         value={values.level || ""}

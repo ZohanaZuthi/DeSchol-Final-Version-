@@ -1,6 +1,6 @@
 import { University } from "../models/university.model.js";
 
-// Create a university
+
 export const createUniversity = async (req, res) => {
   try {
     const { name, location, country, ranking, website, logoUrl, description } = req.body;
@@ -17,8 +17,8 @@ export const createUniversity = async (req, res) => {
       website: website.trim(),
       logoUrl: logoUrl.trim(),
       description: description.trim(),
-      createdBy: req.id,          // requires isAuthenticated middleware
-      verified: true,            // never let client set this on create
+      createdBy: req.id,         
+      verified: true,           
       verifiedAt: undefined,
       verifiedBy: undefined,
     };
@@ -43,7 +43,7 @@ export const myUniversities = async (req, res) => {
 };
 
 
-// Get all universities
+
 export const getAllUniversities = async (req, res) => {
   try {
     const q = {};
@@ -52,7 +52,7 @@ export const getAllUniversities = async (req, res) => {
       const s = String(req.query.search).trim();
       q.$or = [{ name: new RegExp(s, "i") }, { location: new RegExp(s, "i") }];
     }
-    // default: only verified
+    
     if (!("all" in req.query)) q.verified = true;
 
     const universities = await University.find(q).sort({ createdAt: -1 });
@@ -79,7 +79,7 @@ export const getUniversityById = async (req, res) => {
 // Update university
 export const updateUniversity = async (req, res) => {
   try {
-    // strip verification fields from generic updates
+    
     const { verified, verifiedAt, verifiedBy, createdBy, ...safeBody } = req.body;
 
     const updated = await University.findByIdAndUpdate(
@@ -122,7 +122,7 @@ export const verifyUniversity = async (req, res) => {
   }
 };
 
-// (optional) Unverify
+
 export const unverifyUniversity = async (req, res) => {
   try {
     const updated = await University.findByIdAndUpdate(

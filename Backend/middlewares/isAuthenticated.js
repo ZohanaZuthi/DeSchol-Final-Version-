@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 
 export const isAuthenticated = (req, res, next) => {
   try {
-    // read cookie OR "Authorization: Bearer <token>"
+    
     const bearer = req.headers.authorization?.startsWith("Bearer ")
       ? req.headers.authorization.split(" ")[1]
       : null;

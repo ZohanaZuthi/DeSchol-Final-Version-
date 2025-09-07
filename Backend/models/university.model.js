@@ -9,12 +9,12 @@ const universitySchema = new mongoose.Schema({
   website: { type: String, required: true, trim: true },
   logoUrl: { type: String, required: true, trim: true },
   description: { type: String, required: true },
-  // models/university.model.js
+  
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 
 
 
-  // ✅ verification fields
+ 
   verified: { type: Boolean, default: false },
   verifiedAt: { type: Date },
   verifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },

@@ -1,8 +1,8 @@
-// src/components/scholarships/ScholarshipCard.jsx
+
 import { Link } from "react-router-dom";
 
 export default function ScholarshipCard({ s }) {
-  const id = s._id; // needed for /scholarships/:id
+  const id = s._id; 
   const uniName =
     typeof s.university === "string" ? s.university : s.university?.name || "—";
   const deadlineText = s.deadline ? new Date(s.deadline).toLocaleDateString() : "—";
@@ -11,7 +11,7 @@ export default function ScholarshipCard({ s }) {
 
   return (
     <article className="rounded-2xl border border-neutral-200 dark:border-neutral-800 p-5 space-y-3">
-      {/* Make the title link to details */}
+      
       {id ? (
         <Link
           to={`/scholarships/${id}`}
@@ -34,7 +34,7 @@ export default function ScholarshipCard({ s }) {
       </div>
 
       <div className="flex gap-3 pt-1">
-        {/* View details (internal) */}
+        
         {id && (
           <Link
             to={`/scholarships/${id}`}
@@ -44,7 +44,7 @@ export default function ScholarshipCard({ s }) {
           </Link>
         )}
 
-        {/* Apply (external) */}
+       
         {s.link && (
           <a
             href={s.link}

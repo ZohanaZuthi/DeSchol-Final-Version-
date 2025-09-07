@@ -58,7 +58,7 @@ export const createScholarship = async (req, res) => {
       university = uniDoc._id;
     }
 
-    // If you want to allow unverified, ensure your env toggle disables this check
+    
     const REQUIRE_VERIFIED_UNI = (process.env.REQUIRE_VERIFIED_UNI_FOR_COMPOSE ?? "true").toLowerCase() === "true";
     if (REQUIRE_VERIFIED_UNI && !uniDoc.verified) {
       return res.status(403).json({ message: `University "${uniDoc.name}" is not verified yet` });

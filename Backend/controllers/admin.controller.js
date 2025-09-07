@@ -1,4 +1,4 @@
-// controllers/admin.controller.js
+
 import { User } from "../models/user.model.js";
 import { Job } from "../models/news.model.js";
 import { Application } from "../models/application.model.js";

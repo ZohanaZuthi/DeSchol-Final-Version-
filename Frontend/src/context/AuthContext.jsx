@@ -26,7 +26,7 @@ export default function AuthProvider({ children }) {
   };
 
   const logout = async () => {
-    await api.logout();   // must exist in api.js
+    await api.logout();   
     setUser(null);
   };
 

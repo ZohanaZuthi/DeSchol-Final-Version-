@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-12">
       <div className="grid md:grid-cols-2 gap-10 items-center">
-        {/* Left: text */}
+        
         <div>
           <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
             Find the right <span className="text-indigo-600">scholarship</span> for you.
@@ -48,7 +48,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Right: round photo collage */}
+        
         <div className="relative mx-auto md:mx-0 w-[18rem] h-[18rem] md:w-[22rem] md:h-[22rem]">
           <div className="absolute inset-0 -z-10 rounded-full bg-indigo-100/60 dark:bg-indigo-900/20 blur-2xl" />
           <CircleImg src={IMAGES[0]} className="absolute w-28 h-28 top-0 left-6" />

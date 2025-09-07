@@ -2,7 +2,7 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-
+import dfWebhook from "./dialogflow/webhook.js";
 import userRoutes from './routes/user.route.js'
 import universityRoutes from './routes/university.route.js'
 import scholarshipRoutes from './routes/scholarship.route.js'
@@ -25,13 +25,13 @@ app.use(
   })
 )
 
-// Health check
+
 app.get('/', (_req, res) => res.send('Backend is running!'))
 
-// IMPORTANT: match frontend paths
-app.use('/api/auth', userRoutes)          // was /api/users
+app.use('/api/auth', userRoutes)          
 app.use('/api/universities', universityRoutes)
 app.use('/api/scholarships', scholarshipRoutes)
 app.use('/api/applications', applicationRoutes)
 app.use('/api/admin', adminRoutes);  
+app.use("/webhook", dfWebhook);
 export default app

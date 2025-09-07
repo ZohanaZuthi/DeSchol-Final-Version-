@@ -1,4 +1,4 @@
-// routes/application.route.js
+
 import express from "express";
 import { isAuthenticated } from "../middlewares/isAuthenticated.js";
 import {

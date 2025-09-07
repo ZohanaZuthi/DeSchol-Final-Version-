@@ -1,19 +1,19 @@
 // controllers/application.controller.js
 import mongoose from "mongoose";
 import { Application } from "../models/application.model.js";
-import { Job } from "../models/news.model.js"; // your scholarships model is named Job
+import { Job } from "../models/news.model.js"; 
 
-// POST /api/applications/apply  (auth)
+
 export const applyScholarship = async (req, res) => {
   try {
     const { scholarship } = req.body;
 
-    // basic validation on scholarship id
+    
     if (!scholarship || !mongoose.Types.ObjectId.isValid(scholarship)) {
       return res.status(400).json({ message: "Invalid scholarship id" });
     }
 
-    // prevent duplicate application for same user+scholarship
+    
     const existing = await Application.findOne({
       user: req.id,
       scholarship
@@ -25,10 +25,10 @@ export const applyScholarship = async (req, res) => {
     const app = await Application.create({
       user: req.id,
       scholarship,
-      status: "Submitted" // ensure a default if your schema supports it
+      status: "Submitted" 
     });
 
-    // populate some basics for a nicer client response
+    
     const populated = await app.populate([
       { path: "scholarship", populate: { path: "university" } }
     ]);
@@ -43,7 +43,7 @@ export const applyScholarship = async (req, res) => {
   }
 };
 
-// GET /api/applications/my  (auth)
+
 export const getUserApplications = async (req, res) => {
   try {
     const applications = await Application.find({ user: req.id })
@@ -59,10 +59,10 @@ export const getUserApplications = async (req, res) => {
   }
 };
 
-// GET /api/applications/my/dashboard  (auth)
+
 export const myDashboard = async (req, res) => {
   try {
-    // counts by status for the current user
+  
     const byStatusAgg = await Application.aggregate([
       { $match: { user: new mongoose.Types.ObjectId(req.id) } },
       { $group: { _id: "$status", count: { $sum: 1 } } }
@@ -73,13 +73,12 @@ export const myDashboard = async (req, res) => {
       return acc;
     }, {});
 
-    // recent applications for table
     const recentApplications = await Application.find({ user: req.id })
       .sort({ createdAt: -1 })
       .limit(5)
       .populate([{ path: "scholarship", populate: { path: "university" } }]);
 
-    // latest scholarships to recommend (simple: newest 5)
+    
     const latestScholarships = await Job.find({})
       .sort({ createdAt: -1 })
       .limit(5)

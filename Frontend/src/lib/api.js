@@ -1,4 +1,3 @@
-// src/lib/api.js
 const BASE = (import.meta.env.VITE_API_BASE_URL || "http://localhost:5000").replace(/\/+$/, "")
 
 function getToken() {
@@ -20,7 +19,7 @@ async function http(path, { query, auth = false, ...init } = {}) {
   }
   const headers = { "Content-Type": "application/json", ...(init.headers || {}) }
   const token = getToken()
-  if (auth && token) headers["Authorization"] = `Bearer ${token}` // optional; cookie is primary
+  if (auth && token) headers["Authorization"] = `Bearer ${token}` 
 
   const res = await fetch(url, { ...init, headers, credentials: "include" })
   const ct = res.headers.get("content-type") || ""
@@ -30,10 +29,10 @@ async function http(path, { query, auth = false, ...init } = {}) {
 }
 
 export const api = {
-  // --- auth ---
+  
   register: async (payload) => {
     const data = await http("/api/auth/register", { method: "POST", body: JSON.stringify(payload) })
-    if (data?.token) setToken(data.token) // keep in sync with cookie
+    if (data?.token) setToken(data.token) 
     return data
   },
   login: async (payload) => {
@@ -44,25 +43,25 @@ export const api = {
   me:  () => http("/api/auth/me", { auth: true }),
   logout: async () => {
     try { await http("/api/auth/logout", { method: "POST" }) }
-    finally { setToken("") } // clear local token even if server fails
+    finally { setToken("") } 
   },
 
-  // --- scholarships/news ---
+ 
   createScholarship: (payload) =>
     http("/api/scholarships", { method: "POST", body: JSON.stringify(payload), auth: true }),
   listScholarships: (params) => http("/api/scholarships", { query: params }),
   getScholarship:   (id)     => http(`/api/scholarships/${id}`),
 
-  // If your "News" page shows scholarships, keep this alias:
+
   listNews: (params) => http("/api/scholarships", { query: params }),
 
-  // --- dashboards ---
+
   studentDashboard: () => http("/api/applications/my/dashboard", { auth: true }),
   adminStats:       () => http("/api/admin/stats",               { auth: true }),
 
-  // --- universities (optional helpers for your new flow) ---
+  
 listUniversities: (params) => http("/api/universities", { query: params, auth: true }),
-// optionally:
+
 myUniversities:   () => http("/api/universities/me/mine", { auth: true }),
 
   createUniversity: (payload) =>

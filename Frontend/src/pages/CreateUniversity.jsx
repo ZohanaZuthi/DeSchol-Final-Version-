@@ -28,15 +28,15 @@ export default function CreateUniversity() {
     try {
       const res = await api.createUniversity(form);
 
-      // ✅ Redirect to compose page no matter what
+      
       if (res?.university?._id) {
         nav("/admin/compose", { replace: true });
       } else {
-        // fallback if API only sends message
+        
         nav("/admin/compose", { replace: true });
       }
     } catch (e) {
-      // if error is duplicate key, still continue
+      
       if (e.message.includes("already exists")) {
         nav("/admin/compose", { replace: true });
       } else {

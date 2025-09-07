@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
 
-// ----------------- Auth constants/helpers -----------------
+
 const JWT_SECRET = process.env.SECRET_KEY || process.env.JWT_SECRET || "dev_secret";
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 const isProd = process.env.NODE_ENV === "production";
@@ -53,9 +53,7 @@ async function sendEmail({ to, subject, html }) {
   });
 }
 
-// ----------------- Controllers -----------------
 
-/** POST /api/auth/register */
 export const registerUser = async (req, res) => {
   try {
     let { fullname, email, password, phoneNumber, role } = req.body;
@@ -78,7 +76,7 @@ export const registerUser = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create user (unverified)
+    
     const user = await User.create({
       fullname,
       email,
@@ -88,12 +86,12 @@ export const registerUser = async (req, res) => {
       isVerified: false,
     });
 
-    // Generate + store email verification token
+    
     const verifyToken = makeEmailToken();
-    user.emailToken = verifyToken; // your schema has emailToken
+    user.emailToken = verifyToken; 
     await user.save();
 
-    // Send verification email (best-effort for dev)
+    
     const verifyUrl = `${FRONTEND_URL}/verify?token=${encodeURIComponent(verifyToken)}`;
     try {
       await sendEmail({
@@ -108,10 +106,10 @@ export const registerUser = async (req, res) => {
       });
     } catch (mailErr) {
       console.error("EMAIL SEND ERROR:", mailErr);
-      // Not fatal in dev; user will still need to verify to access restricted pages
+      
     }
 
-    // Sign auth cookie
+    
     const authToken = signToken(user._id);
     res.cookie("token", authToken, cookieOpts);
 
@@ -130,7 +128,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
-/** POST /api/auth/login */
+
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -163,7 +161,7 @@ export const login = async (req, res) => {
   }
 };
 
-/** POST /api/auth/logout */
+
 export const logout = async (_req, res) => {
   try {
     res.clearCookie("token", {
@@ -178,7 +176,7 @@ export const logout = async (_req, res) => {
   }
 };
 
-/** GET /api/auth/me  (requires isAuthenticated) */
+
 export const me = async (req, res) => {
   try {
     const user = await User.findById(req.id);
@@ -192,7 +190,7 @@ export const me = async (req, res) => {
   }
 };
 
-/** GET /api/auth/verify?token=... */
+
 export const verifyEmail = async (req, res) => {
   const { token } = req.query;
   try {
@@ -214,7 +212,7 @@ export const verifyEmail = async (req, res) => {
   }
 };
 
-/** POST /api/auth/updateProfile (requires isAuthenticated) */
+
 export const updateProfile = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, bio, skills, profile } = req.body;

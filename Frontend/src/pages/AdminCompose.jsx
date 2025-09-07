@@ -14,10 +14,10 @@ export default function AdminCompose() {
     description: "",
     link: "",
     deadline: "",
-    university: "", // store the university _id as string
+    university: "",
   });
 
-  const [universities, setUniversities] = useState([]); // [{ _id, name }, ...]
+  const [universities, setUniversities] = useState([]); 
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
   const [msg, setMsg] = useState("");

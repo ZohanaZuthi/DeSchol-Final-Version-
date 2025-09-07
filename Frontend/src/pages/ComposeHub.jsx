@@ -1,4 +1,4 @@
-// src/pages/ComposeHub.jsx
+
 import { useEffect, useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import { api } from "../lib/api"
@@ -13,9 +13,7 @@ export default function ComposeHub() {
     let ignore = false
     ;(async () => {
       try {
-        // Prefer an endpoint that returns **only my universities** if you have it:
-        // const data = await api.myUniversities()
-        // Fallback: get all and filter client-side by createdBy if present
+        
         const data = await api.listUniversities()
         if (ignore) return
         setMine(Array.isArray(data) ? data : [])
@@ -31,23 +29,23 @@ export default function ComposeHub() {
   useEffect(() => {
     if (loading || error) return
     if (!mine.length) {
-      // nothing registered → go register first
+      
       nav("/compose/university", { replace: true })
       return
     }
     const hasVerified = mine.some(u => u.verified)
     if (hasVerified) {
-      // at least one verified → straight to compose scholarship
+      
       nav("/admin/compose", { replace: true })
       return
     }
-    // has universities but none verified → stay here and show wait screen
+    
   }, [loading, error, mine, nav])
 
   if (loading) return <div className="p-6">Checking your university status…</div>
   if (error) return <div className="p-6 text-red-600">{error}</div>
 
-  // pending verification screen
+  
   return (
     <section className="mx-auto max-w-2xl px-4 py-10 space-y-4">
       <h1 className="text-2xl font-semibold">Compose</h1>

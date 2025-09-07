@@ -1,4 +1,4 @@
-// routes/admin.route.js
+
 import express from "express";
 import { isAuthenticated } from "../middlewares/isAuthenticated.js";
 import { adminStats } from "../controllers/admin.controller.js";

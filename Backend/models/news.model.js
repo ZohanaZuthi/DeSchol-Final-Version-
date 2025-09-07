@@ -32,7 +32,7 @@ const opportunitySchema = new mongoose.Schema({
   },
   deadline: {
     type: Date,
-    required: false, // Optional but helpful for filtering
+    required: false, 
   },
   type: {
     type: String,
@@ -41,7 +41,7 @@ const opportunitySchema = new mongoose.Schema({
   },
   university: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "University", // 🔗 Reference to University model
+    ref: "University", 
     required: true,
   },
   createdAt: {
