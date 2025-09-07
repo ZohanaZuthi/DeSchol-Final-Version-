@@ -111,13 +111,3 @@ This project is for academic and learning purposes. You can extend it as needed.
 
 ````
 
----
-
-👉 Save this as `README.md` in your project root, then commit:
-
-```powershell
-git add README.md
-git commit -m "Add README.md"
-git push
-````
-
